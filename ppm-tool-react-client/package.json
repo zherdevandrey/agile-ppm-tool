@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "prettier": "2.2.1",
     "remote-redux-devtools": "^0.5.16"
   }
 }

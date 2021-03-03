@@ -63,3 +63,14 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.rm {
+  background: red;
+  border-radius: 50%;
+  color: #fff;
+  border: none;
+}
+
+.done {
+  text-decoration: line-through;
+}

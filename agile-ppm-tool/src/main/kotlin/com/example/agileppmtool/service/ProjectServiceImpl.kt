@@ -24,7 +24,9 @@ class ProjectServiceImpl(
     override fun saveProject(project: Project): Project {
         try {
             val sequenceNumber = sequenceGenerationService.getSequenceNumber("db_sequence")
-            project.id = sequenceNumber
+            if (project.projectId == ""){
+                project.id = sequenceNumber
+            }
             return projectRepository.save(project)
         } catch (ex: Exception) {
             throw ProjectIdException("Project id ${project.id} already exist")

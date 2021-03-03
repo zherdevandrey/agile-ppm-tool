@@ -36,6 +36,8 @@ class ProjectController(var projectService: ProjectService) {
         val errors = validationService.validate(result)
         if (errors.isNotEmpty()) return ResponseEntity(errors, HttpStatus.BAD_REQUEST)
 
+
+
         val saveProject = projectService.saveProject(project)
         val uri = ServletUriComponentsBuilder
             .fromCurrentRequest()
@@ -59,6 +61,7 @@ class ProjectController(var projectService: ProjectService) {
 
     @DeleteMapping("/{projectId}")
     fun deleteProject(@PathVariable projectId: String) {
+        println("get by id")
          projectService.deleteProject(projectId)
     }
 
