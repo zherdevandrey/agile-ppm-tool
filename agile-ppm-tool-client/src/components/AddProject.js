@@ -1,7 +1,11 @@
 import React, {Component} from "react";
 import {createProject} from "../actions/projectActions"
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 
 class AddProject extends Component {
+
     constructor() {
         super();
         this.state = {
@@ -28,7 +32,8 @@ class AddProject extends Component {
             startDate: this.state.startDate,
             endDate: this.state.endDate
         }
-        createProject(newProject, this.props.history)
+
+        this.props.createProject(newProject, this.props.history)
 
     }
 
@@ -105,4 +110,24 @@ class AddProject extends Component {
     }
 }
 
-export default AddProject
+//для проверки параметров приходящих из props
+AddProject.prototypes = {
+    createProject: PropTypes.func.isRequired
+}
+
+//Необходима для подписки компонента на обновление store
+//Мапит обновления store в props компонента
+//Вызывается при изменении состояния хранилища
+const mapStateToProps = function(state){
+
+}
+
+//оборачивает вызов функций в dispatch
+const mapDispatchToProps = {
+    createProject: createProject
+}
+
+
+// connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options]) — позволяет создавать компоненты высшего порядка.
+// Это нужно для создания компонентов-контейнеров на основе базовых компонентов React.
+export default connect(mapStateToProps, mapDispatchToProps)(AddProject);

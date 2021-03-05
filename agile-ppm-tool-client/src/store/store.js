@@ -1,8 +1,8 @@
-import {compose, createStore} from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "../reducers/rootReducer";
-
+import thunk from "redux-thunk";
 const initState = {};
-
+const middleware = [thunk];
 
 let store;
 
@@ -11,6 +11,7 @@ if (window.navigator.userAgent.includes("Chrome")) {
         rootReducer,
         initState,
         compose(
+            applyMiddleware(...middleware),
             window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
         )
     );

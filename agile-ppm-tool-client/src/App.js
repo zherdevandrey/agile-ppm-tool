@@ -9,6 +9,7 @@ import store from "./store/store";
 function App() {
     return (
         <div className="App">
+            {/*<Provider store> — позволяет создавать обёртку для React-приложения и делать состояние Redux доступным для всех компонентов-контейнеров в его иерархии.*/}
             <Provider store={store}>
                 <Router>
                     <Header/>
