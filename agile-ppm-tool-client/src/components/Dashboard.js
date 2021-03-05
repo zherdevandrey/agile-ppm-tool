@@ -17,7 +17,6 @@ export default function (props) {
     ]
 
 
-
     return (
         <div className="projects">
             <div className="container">
@@ -33,7 +32,7 @@ export default function (props) {
 
                         {
                             projects.map(project => {
-                                return <ProjectItem key = {project.id} project = {project}/>
+                                return <ProjectItem key={project.id} project={project}/>
                             })
                         }
 

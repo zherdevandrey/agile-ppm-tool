@@ -12,8 +12,8 @@ function App() {
             <Provider store={store}>
                 <Router>
                     <Header/>
-                    <Route exact path="/dashboard" component={Dashboard}></Route>
-                    <Route exact path="/addProject" component={AddProject}></Route>
+                    <Route exact path="/dashboard" component={Dashboard}/>
+                    <Route exact path="/addProject" component={AddProject}/>
                 </Router>
             </Provider>
         </div>
