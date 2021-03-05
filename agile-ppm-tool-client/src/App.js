@@ -3,16 +3,19 @@ import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import AddProject from "./components/AddProject";
+import {Provider} from "react-redux";
+import store from "./store/store";
 
 function App() {
     return (
         <div className="App">
-            <Router>
-                <Header/>
-                <Route exact path="/dashboard" component = {Dashboard}></Route>
-                <Route exact path="/addProject" component = {AddProject}></Route>
-            </Router>
-
+            <Provider store={store}>
+                <Router>
+                    <Header/>
+                    <Route exact path="/dashboard" component={Dashboard}></Route>
+                    <Route exact path="/addProject" component={AddProject}></Route>
+                </Router>
+            </Provider>
         </div>
     );
 }
