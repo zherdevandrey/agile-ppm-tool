@@ -6,7 +6,6 @@ const initialState = {
 }
 
 function reducer (state = initialState, action){
-    console.log('reducer')
     switch (action.type){
         case "CHANGE_NAME":
             return {...state, name: action.payload}

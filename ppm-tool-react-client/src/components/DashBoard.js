@@ -26,9 +26,15 @@ class DashBoard extends Component {
   
                 <br />
                 <hr />
+
+
+                
                 {projects.map(project => (
                   <ProjectItem key={project.id} project={project} />
                 ))}
+
+
+
               </div>
             </div>
           </div>
