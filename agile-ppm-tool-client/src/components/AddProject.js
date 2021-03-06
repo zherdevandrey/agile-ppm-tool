@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {createProject} from "../actions/projectActions"
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 
 
 class AddProject extends Component {
@@ -13,10 +13,20 @@ class AddProject extends Component {
             projectId: "",
             description: "",
             startDate: "",
-            endDate: ""
+            endDate: "",
+            errors: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.errors) {
+            this.setState({
+                ...this.state,
+                errors: nextProps.errors
+            })
+        }
     }
 
     onChange(e) {
@@ -38,6 +48,9 @@ class AddProject extends Component {
     }
 
     render() {
+
+        const {errors} = this.state
+
         return (
             <div>
                 <div className="project">
@@ -47,6 +60,8 @@ class AddProject extends Component {
                                 <h5 className="display-4 text-center">Create Project form</h5>
                                 <hr/>
                                 <form onSubmit={this.onSubmit}>
+
+
                                     <div className="form-group">
                                         <input
                                             type="text"
@@ -56,16 +71,23 @@ class AddProject extends Component {
                                             value={this.state.projectName}
                                             onChange={this.onChange}
                                         />
+                                        <p>{errors.projectName}</p>
                                     </div>
+
+
                                     <div className="form-group">
-                    <textarea
-                        className="form-control form-control-lg"
-                        placeholder="Project Description"
-                        name="description"
-                        value={this.state.description}
-                        onChange={this.onChange}
-                    />
+                                        <textarea
+                                            className="form-control form-control-lg"
+                                            placeholder="Project Description"
+                                            name="description"
+                                            value={this.state.description}
+                                            onChange={this.onChange}
+                                        />
+                                        <p>{errors.description}</p>
                                     </div>
+
+
+                                    <h6>Estimated Start Date</h6>
                                     <div className="form-group">
                                         <input
                                             type="date"
@@ -74,7 +96,10 @@ class AddProject extends Component {
                                             value={this.state.startDate}
                                             onChange={this.onChange}
                                         />
+                                        <p>{errors.startDate}</p>
                                     </div>
+
+
                                     <h6>Estimated End Date</h6>
                                     <div className="form-group">
                                         <input
@@ -84,8 +109,10 @@ class AddProject extends Component {
                                             value={this.state.endDate}
                                             onChange={this.onChange}
                                         />
+                                        <p>{errors.endDate}</p>
                                     </div>
 
+                                    
                                     <input
                                         type="submit"
                                         className="btn btn-primary btn-block mt-4"
@@ -102,14 +129,16 @@ class AddProject extends Component {
 
 //для проверки параметров приходящих из props
 AddProject.prototypes = {
-    createProject: PropTypes.func.isRequired
+    createProject: PropTypes.func.isRequired,
+    project: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
 }
 
 //Необходима для подписки компонента на обновление store
 //Мапит обновления store в props компонента
 //Вызывается при изменении состояния хранилища
-const mapStateToProps = function(state){
-
+const mapStateToProps = function (state) {
+    return {errors: state.errors}
 }
 
 //оборачивает вызов функций в dispatch
