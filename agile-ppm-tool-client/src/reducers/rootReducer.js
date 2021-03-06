@@ -1,19 +1,22 @@
-import {GET_PROJECTS} from "../types/types"
+import {GET_PROJECTS, GET_PROJECT} from "../types/types"
 
 const initialState = {
-    projects: []
+    projects: [],
+    project: {}
 };
 
 export default function(state = initialState, action) {
 
     switch (action.type) {
         case GET_PROJECTS:
-            console.log("project reducer")
-            console.log("action type " + action.type)
-            console.log("action payload " + action.payload.data)
             return {
                 ...state,
                 projects:action.payload
+            }
+        case GET_PROJECT:
+            return {
+                ...state,
+                project:action.payload
             }
         default:
             return initialState;

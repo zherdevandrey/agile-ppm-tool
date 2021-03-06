@@ -9,9 +9,9 @@ class AddProject extends Component {
     constructor() {
         super();
         this.state = {
-            projectName: "projectName",
-            projectId: "12345",
-            description: "description",
+            projectName: "",
+            projectId: "",
+            description: "",
             startDate: "",
             endDate: ""
         };
@@ -54,16 +54,6 @@ class AddProject extends Component {
                                             placeholder="Project Name"
                                             name="projectName"
                                             value={this.state.projectName}
-                                            onChange={this.onChange}
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="text"
-                                            className="form-control form-control-lg"
-                                            placeholder="Unique Project ID"
-                                            name="projectId"
-                                            value={this.state.projectId}
                                             onChange={this.onChange}
                                         />
                                     </div>

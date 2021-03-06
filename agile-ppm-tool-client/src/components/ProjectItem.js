@@ -1,13 +1,20 @@
 import React, {Component} from 'react'
+import {Link} from "react-router-dom";
+import {createProject, deleteProject} from "../actions/projectActions"
+import {connect} from "react-redux";
 
-export default class ProjectItem extends Component {
+class ProjectItem extends Component {
 
 
-    render(){
+    onDeleteClick(projectId){
+        this.props.deleteProject(projectId)
+    }
+
+    render() {
 
         const {project} = this.props
 
-        return(
+        return (
             <div className="container">
                 <div className="card card-body bg-light mb-3">
                     <div className="row">
@@ -26,12 +33,14 @@ export default class ProjectItem extends Component {
                                     </li>
                                 </a>
                                 <a href="#">
-                                    <li className="list-group-item update">
-                                        <i className="fa fa-edit pr-1"> Update Project Info</i>
-                                    </li>
+                                    <Link to={`updateProject/${project.projectId}`}>
+                                        <li className="list-group-item update">
+                                            <i className="fa fa-edit pr-1"> Update Project Info</i>
+                                        </li>
+                                    </Link>
                                 </a>
                                 <a href="">
-                                    <li className="list-group-item delete">
+                                    <li className="list-group-item delete" onClick={this.onDeleteClick.bind(this, project.projectId)}>
                                         <i className="fa fa-minus-circle pr-1"> Delete Project</i>
                                     </li>
                                 </a>
@@ -44,6 +53,10 @@ export default class ProjectItem extends Component {
     }
 
 
-
-
 }
+
+const mapDispatchToProps = {
+    deleteProject: deleteProject
+}
+
+export default connect(null, mapDispatchToProps)(ProjectItem);
