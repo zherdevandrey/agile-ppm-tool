@@ -6,7 +6,6 @@ import {createProject, getProject} from "../actions/projectActions"
 
 class UpdateProject extends Component {
 
-
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -14,7 +13,8 @@ class UpdateProject extends Component {
             projectId: "",
             description: "",
             startDate: "",
-            endDate: ""
+            endDate: "",
+            errors: {}
         };
 
         this.onChange = this.onChange.bind(this);
@@ -26,22 +26,27 @@ class UpdateProject extends Component {
         this.props.getProject(id)
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
-        const project = {
-            projectName: nextProps.project.projectName,
-            projectId: nextProps.project.projectId,
-            description: nextProps.project.description,
-            startDate: nextProps.project.startDate,
-            endDate: nextProps.project.endDate,
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
         }
+        const {
+            id,
+            projectName,
+            projectId,
+            description,
+            startDate,
+            endDate
+        } = nextProps.project;
 
-        this.state = {
-            projectName: project.projectName,
-            projectId: project.projectId,
-            description: project.description,
-            startDate: project.startDate,
-            endDate: project.endDate
-        }
+        this.setState({
+            id,
+            projectName,
+            projectId,
+            description,
+            startDate,
+            endDate
+        });
     }
 
     onChange(e) {
@@ -64,6 +69,9 @@ class UpdateProject extends Component {
     }
 
     render() {
+
+        const {errors} = this.state
+
         return (
             <div className="project">
                 <div className="container">
@@ -81,6 +89,9 @@ class UpdateProject extends Component {
                                         value={this.state.projectName}
                                         onChange={this.onChange}
                                     />
+                                    {errors.projectName && (
+                                        <p>{errors.projectName}</p>
+                                    )}
                                 </div>
                                 <div className="form-group">
                                     <input
@@ -92,15 +103,16 @@ class UpdateProject extends Component {
                                         onChange={this.onChange}
                                         disabled
                                     />
+                                    <p>{errors.projectId}</p>
                                 </div>
                                 <div className="form-group">
-                    <textarea
-                        className="form-control form-control-lg"
-                        placeholder="Project Description"
-                        name="description"
-                        onChange={this.onChange}
-                        value={this.state.description}
-                    />
+                                <textarea
+                                    className="form-control form-control-lg"
+                                    placeholder="Project Description"
+                                    name="description"
+                                    onChange={this.onChange}
+                                    value={this.state.description}/>
+                                    <p>{errors.description}</p>
                                 </div>
                                 <h6>Start Date</h6>
                                 <div className="form-group">
@@ -111,6 +123,7 @@ class UpdateProject extends Component {
                                         value={this.state.startDate}
                                         onChange={this.onChange}
                                     />
+                                    <p>{errors.startDate}</p>
                                 </div>
                                 <h6>Estimated End Date</h6>
                                 <div className="form-group">
@@ -121,6 +134,7 @@ class UpdateProject extends Component {
                                         value={this.state.endDate}
                                         onChange={this.onChange}
                                     />
+                                    <p>{errors.endDate}</p>
                                 </div>
 
                                 <input
@@ -140,12 +154,14 @@ class UpdateProject extends Component {
 UpdateProject.propTypes = {
     project: PropTypes.object.isRequired,
     getProject: PropTypes.func.isRequired,
-    createProject: PropTypes.func.isRequired
+    createProject: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = function (state) {
     return {
-        project: state.project
+        project: state.project,
+        errors: state.errors
     }
 };
 
