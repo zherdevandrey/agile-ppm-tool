@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDate
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 @Document
@@ -18,17 +19,18 @@ data class Project(
     val projectName: String?,
 
     @Indexed(unique=true)
-    @field:NotBlank(message = "Project Identifier is required")
-    @field:Size(min = 4, max = 5, message = "Please use 4 to 5 characters")
-    val projectId: String,
+    var projectId: String?,
 
     @field:NotBlank(message = "Project description is required")
-    val description: String,
-    //@JsonFormat(pattern = "yyyy-mm-dd")
-    val startDate: LocalDate,
+    val description: String?,
 
-    //@JsonFormat(pattern = "yyyy-mm-dd")
-        val endDate: LocalDate
+    @field:NotNull(message = "Project start Date is required")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    val startDate: LocalDate?,
+
+    @field:NotNull(message = "Project end Date is required")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    val endDate: LocalDate?
 
 //    val createdDate: LocalDateTime,
 //    val updatedDate: LocalDateTime

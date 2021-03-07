@@ -1,10 +1,10 @@
 package com.example.agileppmtool.service
 
-
 import com.example.agileppmtool.domain.Project
 import com.example.agileppmtool.exceptions.ProjectIdException
 import com.example.agileppmtool.repo.ProjectRepository
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class ProjectServiceImpl(
@@ -24,7 +24,8 @@ class ProjectServiceImpl(
     override fun saveProject(project: Project): Project {
         try {
             val sequenceNumber = sequenceGenerationService.getSequenceNumber("db_sequence")
-            if (project.projectId == ""){
+            if (project.projectId == null || project.projectId == ""){
+                project.projectId = UUID.randomUUID().toString()
                 project.id = sequenceNumber
             }
             return projectRepository.save(project)

@@ -51,8 +51,6 @@ class ProjectItem extends Component {
             </div>
         )
     }
-
-
 }
 
 const mapDispatchToProps = {
